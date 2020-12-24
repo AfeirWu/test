@@ -11,7 +11,7 @@ jobs:
       - name: test
         env: 
           ss: ${{toJSON(github.event)}}
-        run: | 
+        run: |
           echo '${{env.ss}}'
           echo ${{github.event_name}}
           echo ${{github.event_path}}
