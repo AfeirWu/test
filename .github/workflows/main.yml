@@ -1,0 +1,19 @@
+name: 测试
+on:
+  schedule:
+    - cron: '0/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: test
+        env: 
+          ss: ${{toJSON(github.event)}}
+        run: | 
+          echo '${{env.ss}}'
+          echo ${{github.event_name}}
+          echo ${{github.event_path}}
