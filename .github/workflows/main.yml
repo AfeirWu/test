@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v2
         
       - name: test
-        if: github.event.schedule
-        env: 
-          ss: ${{toJSON(github.event)}}
         run: |
-          echo '${{env.ss}}'
-          echo ${{github.event_name}}
-          echo ${{github.event_path}}
+          sed -i \
+          -e 's#//delete#delete#' \
+          -e 's#//require(#require(#' \
+          -e '19,21d' \
+          -e '8d' \
+          index.js
+          cat index.js
