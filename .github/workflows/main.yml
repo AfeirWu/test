@@ -21,3 +21,6 @@ jobs:
           -e 's#      })#//      })#' \
           index.js
           cat index.js
+          git add index.js
+          git commit -m 'update index.js'
+          git push
