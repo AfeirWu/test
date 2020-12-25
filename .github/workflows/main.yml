@@ -12,10 +12,12 @@ jobs:
         
       - name: test
         run: |
-          sed -i \
+         sed -i \
           -e 's#//delete#delete#' \
           -e 's#//require(#require(#' \
-          -e '19,21d' \
-          -e '8d' \
+          -e 's#      var request#//      var request#' \
+          -e 's#      request(#//      request(#' \
+          -e 's#        eval(#//        eval(#' \
+          -e 's#      })#//      })#'
           index.js
           cat index.js
