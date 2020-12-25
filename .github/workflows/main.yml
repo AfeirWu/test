@@ -18,6 +18,6 @@ jobs:
           -e 's#      var request#//      var request#' \
           -e 's#      request(#//      request(#' \
           -e 's#        eval(#//        eval(#' \
-          -e 's#      })#//      })#'
+          -e 's#      })#//      })#' \
           index.js
           cat index.js
