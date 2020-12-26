@@ -10,18 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-      - name: test
+      - name: Set the value
         run: |
-         sed -i \
-          -e 's#//delete#delete#' \
-          -e 's#//require(#require(#' \
-          -e 's#      var request#//      var request#' \
-          -e 's#      request(#//      request(#' \
-          -e 's#        eval(#//        eval(#' \
-          -e 's#      })#//      })#' \
-          index.js
-          git config --global user.email VIP2925757292@gmail.com
-          git config --global user.name AfeirWu
-          git add index.js
-          git commit -m 'update index.js'
-          git push
+          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          curl https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/EsT8TdGSJd6io3WcOc7SNw==/ >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
