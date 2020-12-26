@@ -12,7 +12,7 @@ jobs:
         
       - name: Set the value
         run: |
-          export res=`curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '(?<=code":)[0-9]+'`
+          export res=`curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '[0-9]+'`
           echo 22222222
           echo $res
 
