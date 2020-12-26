@@ -13,7 +13,7 @@ jobs:
       - name: Set the value
         run: |
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-          curl https://httpbin.org/json >> $GITHUB_ENV
+          curl -X GET http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '(?<=code":)[0-9]+' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 #          echo 'MyFruit1Res<<EOF' >> $GITHUB_ENV
 #          curl -X GET http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '(?<=code":)[0-9]+' >> $GITHUB_ENV
