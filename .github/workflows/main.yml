@@ -13,6 +13,7 @@ jobs:
       - name: Set the value
         run: |
           export res=`curl http://api.turinglabs.net/api/v1/jd/farm/create/111/`
+          echo 22222222
           echo $res
 
       - name: Get the value
