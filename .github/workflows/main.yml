@@ -12,12 +12,10 @@ jobs:
         
       - name: Set the value
         run: |
-          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          echo 'JSON_RESPONSE<<XXX' >> $GITHUB_ENV
           curl https://httpbin.org/json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-          echo $JSON_RESPONSE
+          echo 'XXX' >> $GITHUB_ENV
           echo "action_state=yellow" >> $GITHUB_ENV
-          echo $action_state
 
       - name: Get the value
         run: |
