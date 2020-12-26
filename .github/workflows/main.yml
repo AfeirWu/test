@@ -12,9 +12,9 @@ jobs:
         
       - name: Set the value
         run: |
-          code=0 
-          while [$code -ne 400] 
-          do 
-          code=$(curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | sed 's/ //g' | grep -Po '(?<="code":)[0-9]) 
-          echo $code
+          code=0 \
+          while [$code -ne 400] \
+          do \
+          code=$(curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | sed 's/ //g' | grep -Po '(?<="code":)[0-9]) \
+          echo $code \
           done
