@@ -13,6 +13,6 @@ jobs:
       - name: Set the value
         run: |
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-          curl https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/EsT8TdGSJd6io3WcOc7SNw==/ >> $GITHUB_ENV
+          curl https://httpbin.org/json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
