@@ -12,11 +12,8 @@ jobs:
         
       - name: Set the value
         run: |
-          echo 'JSON_RESPONSE<<XXX' >> $GITHUB_ENV
-          curl https://httpbin.org/json >> $GITHUB_ENV
-          echo 'XXX' >> $GITHUB_ENV
-          echo "action_state=`curl https://httpbin.org/json`" >> $GITHUB_ENV
+          export MyFruit1Res=`curl -X GET http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '(?<=code":)[0-9]+'`
 
       - name: Get the value
         run: |
-          echo $action_state
+          echo $MyFruit1Res
