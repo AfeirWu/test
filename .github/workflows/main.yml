@@ -12,10 +12,8 @@ jobs:
         
       - name: Set the value
         run: |
-          export res=`curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '[0-9]+'`
-          echo $res
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-          curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '[0-9]+' >> $GITHUB_ENV
+          curl http://api.turinglabs.net/api/v1/jd/farm/create/111/ | sed 's/ //g' | grep -Po '(?<="code":)[0-9] >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - name: Get the value
