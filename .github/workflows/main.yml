@@ -13,6 +13,7 @@ jobs:
       - name: Set the value
         run: |
           export MyFruit1Res=`curl -X GET http://api.turinglabs.net/api/v1/jd/farm/create/111/ | grep -Po '(?<=code":)[0-9]+'`
+          echo $MyFruit1Res
 
       - name: Get the value
         run: |
