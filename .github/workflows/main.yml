@@ -29,5 +29,5 @@ jobs:
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ env.PAT }}" \
-            -d '{"message":"修改index.js","content":"$(base64 index.js)","sha":"${{ hashFiles('**/index.js') }}"}' \
+            -d '{"message":"修改index.js","content":\""$(base64 index.js)"\","sha":"${{ hashFiles('**/index.js') }}"}' \
             https://api.github.com/repos/${{ github.repository }}/contents/index.js
