@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PAT: ${{ secrets.PAT }}
+      PUSH_KEY: ${{ secrets.PUSH_KEY }}
     steps:
       - uses: actions/checkout@v2
         
