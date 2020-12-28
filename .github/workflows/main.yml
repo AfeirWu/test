@@ -32,8 +32,7 @@ jobs:
       - name: GET文件
         run: |
           base64Str=`base64 index.js`
-          echo $base64Str
-          cat index.js | git hash-object --stdin
+          echo -n $base64Str
           git hash-object index.js
           curl \
             -X GET \
