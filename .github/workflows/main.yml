@@ -38,7 +38,7 @@ jobs:
           base64 index.js >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
           echo "${sha}"
-          echo "${{base64Str}}"
+          echo "${base64Str}"
           curl \
             -X GET \
             -H "Accept: application/vnd.github.v3+json" \
