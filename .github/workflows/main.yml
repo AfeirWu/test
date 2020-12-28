@@ -28,7 +28,16 @@ jobs:
         id: base64Config
         with:
           filePath: index.js
-            
+      
+      - name: GET文件
+        run: |
+          base64Str=`base64 index.js`
+          curl \
+            -X GET \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ env.PAT }}" \
+            https://api.github.com/repos/${{ github.repository }}/contents/index.js 
+      
       - name: 提交修改文件
         run: |
           base64Str=`base64 index.js`
