@@ -32,7 +32,7 @@ jobs:
       - name: GET文件
         run: |
           echo "sha=`git hash-object index.js`" >> $GITHUB_ENV
-          echo "base64Str=`base64 index.js`" >> $GITHUB_ENV
+          echo "base64Str=$(base64 index.js)" >> $GITHUB_ENV
           curl \
             -X GET \
             -H "Accept: application/vnd.github.v3+json" \
