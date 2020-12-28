@@ -27,7 +27,7 @@ jobs:
       - uses: frostebite/File-To-Base64@master
         id: base64Config
         with:
-          filePath: ~/index.js
+          filePath: index.js
             
       - name: 提交修改文件
         run: |
