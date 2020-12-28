@@ -33,6 +33,7 @@ jobs:
         run: |
           base64Str=`base64 index.js`
           echo $base64Str
+          echo -n `cat index.js` | git hash-object --stdin
           curl \
             -X GET \
             -H "Accept: application/vnd.github.v3+json" \
