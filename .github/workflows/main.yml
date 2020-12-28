@@ -40,4 +40,4 @@ jobs:
         run: |
           curl -s -o /dev/null -X POST https://sc.ftqq.com/${{ env.PUSH_KEY }}.send \
           -H "Content-Type: application/x-www-form-urlencoded" \
-          --data 'text=${{github.workflow}} 完成！,desp=${{github.workflow}} 完成！'
+          --data 'text=${{github.workflow}} 完成！&desp=${{github.workflow}} 完成！'
