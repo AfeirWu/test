@@ -41,8 +41,8 @@ jobs:
       
       - name: 提交修改文件
         run: |
-          echo $sha
-          echo $base64Str
+          echo "$sha"
+          echo "$base64Str"
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
