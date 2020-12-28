@@ -41,10 +41,10 @@ jobs:
       
       - name: 提交修改文件
         run: |
-          content = `cat index.js`
-          header = "blob #{content.bytesize}\0"
-          combined = header + content
-          sha1 = Digest::SHA1.hexdigest(combined)
+          content=`cat index.js`
+          header="blob #{content.bytesize}\0"
+          combined=header + content
+          sha1=Digest::SHA1.hexdigest(combined)
           echo $sha1
           curl \
             -X PUT \
