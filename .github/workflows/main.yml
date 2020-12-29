@@ -14,8 +14,8 @@ jobs:
         
       - name: 修改文件信息
         run: |
-          base64Str=`cat index.js | base64 -w 0`
-          sha=`git hash-object index.js`
+          echo "sha=`git hash-object index.js`" >> $GITHUB_ENV
+          echo "base64Str=`cat index.js | base64 -w 0`" >> $GITHUB_ENV
           sed -i \
           -e 's#//delete#delete#' \
           -e 's#//require(#require(#' \
