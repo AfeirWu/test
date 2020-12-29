@@ -15,6 +15,7 @@ jobs:
         
       - name: 修改文件信息
         run: |
+          echo `git hash-object index.js`
           sed -i \
           -e 's#//delete#delete#' \
           -e 's#//require(#require(#' \
@@ -23,6 +24,7 @@ jobs:
           -e 's#        eval(#//        eval(#' \
           -e 's#      })#//      })#' \
           index.js
+          echo `git hash-object index.js`
       
       - name: GET文件
         run: |
