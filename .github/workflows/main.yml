@@ -41,11 +41,11 @@ jobs:
       
       - name: 提交修改文件
         run: |
-          base64Str=`base64 index.js`
-          sha=`git hash-object index.js`
+          base64Str=`cat index.js | base64 -w 0` #文件转base64
+          sha=`git hash-object index.js` #获取文件sha值
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ env.PAT }}" \
-            -d '{"message":"修改index.js","content":"Ly8ndXNlIHN0cmljdCc7DQpleHBvcnRzLm1haW5faGFuZGxlciA9IGFzeW5j\nIChldmVudCwgY29udGV4dCwgY2FsbGJhY2spID0+IHsNCiAgdHJ5IHsNCiAg\nICAvL+WmguaenOaDs+WcqOS4gOS4quWumuaXtuinpuWPkeWZqOmHjOmdouaJ\np+ihjOWkmuS4qmpz5paH5Lu26ZyA6KaB5Zyo5a6a5pe26Kem5Y+R5Zmo55qE\n44CQ6ZmE5Yqg5L+h5oGv44CR6YeM6Z2i5aGr5YaZ5a+55bqU55qE5ZCN56ew\n77yM55SoICYg6ZO+5o6lDQogICAgLy/kvovlpoLmiJHmg7PkuIDkuKrlrprm\nl7bop6blj5Hlmajph4zmiafooYxqZF9zcGVlZC5qc+WSjGpkX2JlYW5fY2hh\nbmdlLmpz77yM5Zyo5a6a5pe26Kem5Y+R5Zmo55qE44CQ6ZmE5Yqg5L+h5oGv\n44CR6YeM6Z2i5bCx5aGr5YaZIGpkX3NwZWVkJmpkX2JlYW5fY2hhbmdlDQog\nICAgZm9yIChjb25zdCB2IG9mIGV2ZW50WyJNZXNzYWdlIl0uc3BsaXQoIiYi\nKSkgew0KICAgICAgY29uc29sZS5sb2codik7DQogICAgICB2YXIgcmVxdWVz\ndCA9IHJlcXVpcmUoJ3JlcXVlc3QnKTsNCiAgICAgIC8vMS7miafooYzoh6rl\nt7HkuIrkvKDnmoRqc+aWh+S7tg0KICAgICAgLy9kZWxldGUgcmVxdWlyZS5j\nYWNoZVtyZXF1aXJlLnJlc29sdmUoJy4vJyt2KycuanMnKV07DQogICAgICAv\nL3JlcXVpcmUoJy4vJyt2KycuanMnKQ0KDQogICAgICAvLzIu5omn6KGM5Zu9\n5YaFZ2l0ZWXov5znq69qc+aWh+S7tuWmguaenOmDqOe9su+8jOWcqOWbveWG\nheiKgueCue+8jOmAieaLqTHmiJYy55qE5pa55byPDQogICAgICAvL3JlcXVl\nc3QoJ2h0dHBzOi8vZ2l0ZWUuY29tL2x4azAzMDEvamRfc2NyaXB0cy9yYXcv\nbWFzdGVyLycrdisnLmpzJywgZnVuY3Rpb24gKGVycm9yLCByZXNwb25zZSwg\nYm9keSkgew0KICAgICAgLy8gZXZhbChyZXNwb25zZS5ib2R5KQ0KICAgICAg\nLy99KQ0KDQogICAgICAvLzMu5omn6KGMZ2l0aHVi6L+c56uv55qEanPmlofk\nu7Yo5ZugZ2l0aHVi55qEcmF357G75Z6L55qE5paH5Lu26KKr5aKZLOatpOaW\nueazleS6keWHveaVsOS4jeaOqOiNkCkNCiAgICAgIHJlcXVlc3QoJ2h0dHBz\nOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9seGswMzAxL2pkX3Njcmlw\ndHMvbWFzdGVyLycgKyB2ICsgJy5qcycsIGZ1bmN0aW9uIChlcnJvciwgcmVz\ncG9uc2UsIGJvZHkpIHsNCiAgICAgICAgZXZhbChyZXNwb25zZS5ib2R5KQ0K\nICAgICAgfSkNCiAgICB9DQogIH0gY2F0Y2ggKGUpIHsNCiAgICBjb25zb2xl\nLmVycm9yKGUpDQogIH0NCn0NCg==\n","sha":"'$sha'"}' \
+            -d '{"message":"修改index.js","content":"","sha":"'$sha'"}' \
             https://api.github.com/repos/${{ github.repository }}/contents/index.js
