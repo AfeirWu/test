@@ -14,6 +14,8 @@ jobs:
       
       - name: 修改文件信息
         run: |
+          echo `git hash-object index.js`
+          echo `cat index.js | base64 -w 0`
           sed -i \
           -e 's#//delete#delete#' \
           -e 's#//require(#require(#' \
@@ -27,6 +29,8 @@ jobs:
         run: |
           sha=`git hash-object index.js`
           base64Str=`cat index.js | base64 -w 0`
+          echo $sha
+          echo $base64Str
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
