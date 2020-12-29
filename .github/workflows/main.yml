@@ -33,9 +33,11 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/contents/index.js
       
       - name: 提交修改文件
+        if: ${{ success() }}
         run: |
           base64Str=`cat index.js | base64 -w 0`
           sha=`git hash-object index.js`
+          echo $sha
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
