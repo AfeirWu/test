@@ -13,39 +13,34 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-#       - name: 修改文件信息
-#         run: |
-#           sed -i \
-#           -e 's#//delete#delete#' \
-#           -e 's#//require(#require(#' \
-#           -e 's#      var request#//      var request#' \
-#           -e 's#      request(#//      request(#' \
-#           -e 's#        eval(#//        eval(#' \
-#           -e 's#      })#//      })#' \
-#           index.js
-
-      - uses: frostebite/File-To-Base64@master
-        id: base64Config
-        with:
-          filePath: index.js
-      
-      - name: GET文件
+      - name: 修改文件信息
         run: |
-          echo "sha=$(git hash-object index.js)" >> $GITHUB_ENV
-          echo "base64Str=base64 index.js" >> $GITHUB_ENV
-          curl \
-            -X GET \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ env.PAT }}" \
-            https://api.github.com/repos/${{ github.repository }}/contents/index.js
+          sed -i \
+          -e 's#//delete#delete#' \
+          -e 's#//require(#require(#' \
+          -e 's#      var request#//      var request#' \
+          -e 's#      request(#//      request(#' \
+          -e 's#        eval(#//        eval(#' \
+          -e 's#      })#//      })#' \
+          index.js
+      
+#       - name: GET文件
+#         run: |
+#           echo "sha=$(git hash-object index.js)" >> $GITHUB_ENV
+#           echo "base64Str=base64 index.js" >> $GITHUB_ENV
+#           curl \
+#             -X GET \
+#             -H "Accept: application/vnd.github.v3+json" \
+#             -H "Authorization: token ${{ env.PAT }}" \
+#             https://api.github.com/repos/${{ github.repository }}/contents/index.js
       
       - name: 提交修改文件
         run: |
-          base64Str=`cat index.js | base64 -w 0` #文件转base64
-          sha=`git hash-object index.js` #获取文件sha值
+          base64Str=`cat index.js | base64 -w 0`
+          sha=`git hash-object index.js`
           curl \
             -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ env.PAT }}" \
-            -d '{"message":"修改index.js","content":"","sha":"'$sha'"}' \
+            -d '{"message":"修改index.js","content":"'$base64Str'","sha":"'$sha'"}' \
             https://api.github.com/repos/${{ github.repository }}/contents/index.js
