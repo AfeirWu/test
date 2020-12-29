@@ -7,14 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PAT: ${{ secrets.PAT }}
-      PUSH_KEY: ${{ secrets.PUSH_KEY }}
     steps:
       - uses: actions/checkout@v2
         
       - name: 修改文件信息
         run: |
+          base64Str=`cat index.js | base64 -w 0`
           sha=`git hash-object index.js`
           sed -i \
           -e 's#//delete#delete#' \
@@ -36,7 +34,7 @@ jobs:
       - name: 提交修改文件
         if: ${{ success() }}
         run: |
-          base64Str=`cat index.js | base64 -w 0`
+          echo $base64Str
           echo $sha
           curl \
             -X PUT \
