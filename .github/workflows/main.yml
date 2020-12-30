@@ -24,7 +24,7 @@ jobs:
           SYNC_REPOSITORY: lxk0301/jd_scripts
           AUTHOR_EMAIL: action@github.com
           AUTHOR_NAME: AfeirWu
-          REGEX: .*
+          REGEX: '.*'
           EXCLUDE_FILES: /.github/workflows /main.sh /index.js
           RESULT_BRANCH_NAME: main
           SYNC_IGNORE_FILE_NAME: '.syncignore'
