@@ -16,7 +16,7 @@ jobs:
       
       - name: checkout
         shell: bash
-        run: ${{ github.action_path }}/main.sh
+        run: ${{ github.workspace }}/main.sh
         env:
           SYNC_BRANCH_NAME: master
           SYNC_REPOSITORY: lxk0301/jd_scripts
