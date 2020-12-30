@@ -17,8 +17,8 @@ jobs:
       - name: checkout
         shell: bash
         run: |
-          chmod +x ${{ github.workpace }}/main.sh
-          ${{ github.workpace }}/main.sh
+          chmod +x ${{ github.workspace }}/main.sh
+          ${{ github.workspace }}/main.sh
         env:
           SYNC_BRANCH_NAME: master
           SYNC_REPOSITORY: lxk0301/jd_scripts
