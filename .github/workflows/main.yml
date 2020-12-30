@@ -22,5 +22,5 @@ jobs:
           SYNC_REPOSITORY: lxk0301/jd_scripts
           AUTHOR_EMAIL: action@github.com
           AUTHOR_NAME: AfeirWu
-          EXCLUDE_FILES: /.github/workflows
+          EXCLUDE_FILES: /.github/workflows /main.sh
           RESULT_BRANCH_NAME: main
