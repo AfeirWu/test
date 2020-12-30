@@ -20,12 +20,12 @@ jobs:
           chmod +x ${{ github.workspace }}/main.sh
           ${{ github.workspace }}/main.sh
         env:
-          SYNC_BRANCH_NAME: master
+          SYNC_BRANCH_NAME: 'master'
           SYNC_REPOSITORY: lxk0301/jd_scripts
-          AUTHOR_EMAIL: action@github.com
-          AUTHOR_NAME: AfeirWu
+          AUTHOR_EMAIL: 'action@github.com'
+          AUTHOR_NAME: 'AfeirWu'
           REGEX: '.*'
           EXCLUDE_FILES: /.github/workflows /main.sh /index.js
-          RESULT_BRANCH_NAME: main
+          RESULT_BRANCH_NAME: 'main'
           SYNC_IGNORE_FILE_NAME: '.syncignore'
           WORKING_DIRECTORY: ''
