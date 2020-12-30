@@ -24,6 +24,8 @@ jobs:
           SYNC_REPOSITORY: lxk0301/jd_scripts
           AUTHOR_EMAIL: action@github.com
           AUTHOR_NAME: AfeirWu
-          EXCLUDE_FILES: ${{ github.workspace }}/.github/workflows
-          RESULT_BRANCH_NAME: main
           REGEX: .*
+          EXCLUDE_FILES: /.github/workflows /main.sh /index.js
+          RESULT_BRANCH_NAME: main
+          SYNC_IGNORE_FILE_NAME: '.syncignore'
+          WORKING_DIRECTORY: ""
