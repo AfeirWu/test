@@ -17,7 +17,7 @@ jobs:
       - name: checkout
         shell: bash
         run: |
-          pwd
+          chmod +x .github/workflows/main.sh
           .github/workflows/main.sh
         env:
           SYNC_BRANCH_NAME: master
