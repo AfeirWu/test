@@ -28,4 +28,4 @@ jobs:
           EXCLUDE_FILES: /.github/workflows /main.sh /index.js
           RESULT_BRANCH_NAME: main
           SYNC_IGNORE_FILE_NAME: '.syncignore'
-          WORKING_DIRECTORY: ""
+          WORKING_DIRECTORY: ''
