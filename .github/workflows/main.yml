@@ -16,9 +16,10 @@ jobs:
       
       - name: checkout
         shell: bash
+        working-directory: .github/workflows
         run: |
           pwd
-          ${{ github.workspace }}/.github/workflows/main.sh
+          main.sh
         env:
           SYNC_BRANCH_NAME: master
           SYNC_REPOSITORY: lxk0301/jd_scripts
