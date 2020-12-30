@@ -14,12 +14,13 @@ jobs:
         with:
           token: ${{ env.PAT }}
       
-      - name: Sync files with dst-octocat-repsotiory!
-        uses: denis-tingajkin/sync-files@main
-        with:
-          git-author-email: 'action@github.com'
-          git-author-name: 'action'
-          src-repository: lxk0301/jd_scripts
-          sync-branch-name: master
-          result-branch-name: main
-          exclude-files: /.github/workflows
+      - name: checkout
+        shell: bash
+        run: main.sh
+        env:
+          SYNC_BRANCH_NAME: master
+          SYNC_REPOSITORY: lxk0301/jd_scripts
+          AUTHOR_EMAIL: action@github.com
+          AUTHOR_NAME: AfeirWu
+          EXCLUDE_FILES: /.github/workflows
+          RESULT_BRANCH_NAME: main
