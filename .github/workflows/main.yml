@@ -20,4 +20,4 @@ jobs:
           src-repository: lxk0301/jd_scripts
           sync-branch-name: master
           result-branch-name: main
-          exclude-files: /index.js
+          exclude-files: /.github/workflows
