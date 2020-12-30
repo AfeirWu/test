@@ -11,13 +11,15 @@ jobs:
       PAT: ${{ secrets.PAT }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ env.PAT }}
       
       - name: Sync files with dst-octocat-repsotiory!
         uses: denis-tingajkin/sync-files@main
         with:
           git-author-email: 'action@github.com'
           git-author-name: 'action'
-          src-repository: 'lxk0301/jd_scripts'
+          src-repository: lxk0301/jd_scripts
           sync-branch-name: master
           result-branch-name: main
           exclude-files: /.github/workflows
