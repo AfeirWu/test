@@ -3,34 +3,22 @@ branding:
   color: gray-dark
 name: 'Sync files'
 description: 'This action syncs repository files with another repository.'
-inputs:
-  working-directory:
-    descripion: 'The working working-directory.'
-    default: ''
-  exclude-files:
-    default: ''
-    description: 'Space-separated paths of files that should be excluded from sync.'
-  sync-ignore-file-name:
-    default: '.syncignore'
-    description: 'The path to file in the destination repository that contains space-separated paths to files that should be excluded from sync.'
 runs:
   using: "composite"
   steps:
     - shell: bash
       env:
         EXCLUDE_FILES: ${{ inputs.exclude-files }}
-        WORKING_DIRECTORY: ${{ inputs.working-directory }}
-        SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
       run: |
         checkOrAddSyncIgnore() {
-            if [ ! -f ${SYNC_IGNORE_FILE_NAME} ]; then
-                touch ${SYNC_IGNORE_FILE_NAME}
-                git add ${SYNC_IGNORE_FILE_NAME}
+            if [ ! -f .syncignore ]; then
+                touch .syncignore
+                git add .syncignore
             fi
         }
 
         main() {
-            pushd "${WORKING_DIRECTORY}"
+#            pushd "${WORKING_DIRECTORY}"
             git config --global user.email test@github.com
             git config --global user.name test
             currentBranch=$(git branch --show-current)
@@ -41,15 +29,15 @@ runs:
             checkOrAddSyncIgnore
             git diff source/master -R --binary | git apply
             git add $(git ls-tree --name-only -r source/master)
-            git restore -- ${SYNC_IGNORE_FILE_NAME}
+            git restore -- .syncignore
             while read -r path || [[ -n "$path" ]]; do
                 git restore --staged -- $path
                 git restore -- $path
-            done < ${SYNC_IGNORE_FILE_NAME}
-            for path in $EXCLUDE_FILES; do
-                git restore --staged -- $path
-                git restore -- $path
-            done
+            done < .syncignore
+#            for path in $EXCLUDE_FILES; do
+#                git restore --staged -- $path
+#                git restore -- $path
+#            done
             if ! [ -n "$(git diff --cached --exit-code)" ]; then
                 exit 0;
             fi
