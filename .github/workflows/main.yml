@@ -14,18 +14,24 @@ jobs:
         with:
           token: ${{ env.PAT }}
       
-      - name: checkout
-        shell: bash
-        run: |
-          chmod +x ${{ github.workspace }}/main.sh
-          ${{ github.workspace }}/main.sh
-        env:
-          SYNC_BRANCH_NAME: 'master'
-          SYNC_REPOSITORY: lxk0301/jd_scripts
-          AUTHOR_EMAIL: 'action@github.com'
-          AUTHOR_NAME: 'AfeirWu'
-          REGEX: '.*'
-          EXCLUDE_FILES: /.github/workflows /main.sh /index.js
-          RESULT_BRANCH_NAME: 'main'
-          SYNC_IGNORE_FILE_NAME: '.syncignore'
-          WORKING_DIRECTORY: ''
+#       - name: checkout
+#         shell: bash
+#         run: |
+#           chmod +x ${{ github.workspace }}/main.sh
+#           ${{ github.workspace }}/main.sh
+#         env:
+#           SYNC_BRANCH_NAME: 'master'
+#           SYNC_REPOSITORY: lxk0301/jd_scripts
+#           AUTHOR_EMAIL: 'action@github.com'
+#           AUTHOR_NAME: 'AfeirWu'
+#           REGEX: '.*'
+#           EXCLUDE_FILES: /.github/workflows /main.sh /index.js
+#           RESULT_BRANCH_NAME: 'main'
+#           SYNC_IGNORE_FILE_NAME: '.syncignore'
+#           WORKING_DIRECTORY: ''
+      - name: Sync files with dst-octocat-repsotiory!
+        uses: denis-tingajkin/sync-files@main
+        with:
+          git-author-email: 'AfeirWu@github.com'
+          git-author-name: 'AfeirWu'
+          src-repository: AfeirWu/AutoUploadJdShareCode
