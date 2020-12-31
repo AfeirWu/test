@@ -10,9 +10,6 @@ inputs:
   git-author-name:
     description: 'The name of the committer.'
     required: true
-  sync-repository:
-    description: 'The GitHub repository with which synchronizing.'
-    required: true
   allow-files-pattern:
     description: 'The regex pattern for files that allowed to update. By default all files.'
     default: '.*'
@@ -37,7 +34,6 @@ runs:
     - shell: bash
       env:
         SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
-        SYNC_REPOSITORY: ${{ inputs.sync-repository }}
         AUTHOR_EMAIL: ${{ inputs.git-author-email }}
         AUTHOR_NAME: ${{ inputs.git-author-name }}
         REGEX: ${{ inputs.allow-files-pattern }}
@@ -46,7 +42,6 @@ runs:
         SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
         RESULT_BRANCH_NAME: ${{ inputs.result-branch-name }}
       run: |
-        echo "哈哈 "${SYNC_REPOSITORY}
         getDeletedFiles() {
             addedFiles=$(git log source/${SYNC_BRANCH_NAME} --pretty=format: --name-only --diff-filter=AR | sort -u)
             currentFiles=$(git ls-files)
@@ -74,11 +69,11 @@ runs:
         }
 
         createCommitMessage() {
-            echo "Sync files with ${SYNC_REPOSITORY}" > /tmp/commit-message
+            echo "Sync files with lxk0301/jd_scripts" > /tmp/commit-message
             echo "" >> /tmp/commit-message
-            echo "This PR syncs files with ${GITHUB_SERVER_URL}/${SYNC_REPOSITORY}" >> /tmp/commit-message
+            echo "This PR syncs files with ${GITHUB_SERVER_URL}/lxk0301/jd_scripts" >> /tmp/commit-message
             echo "" >> /tmp/commit-message
-            echo "Revision: ${GITHUB_SERVER_URL}/${SYNC_REPOSITORY}/commits/$(git rev-parse HEAD)" >> /tmp/commit-message 
+            echo "Revision: ${GITHUB_SERVER_URL}/lxk0301/jd_scripts/commits/$(git rev-parse HEAD)" >> /tmp/commit-message 
             echo "" >> /tmp/commit-message
             git log -1 >> /tmp/commit-message
         }
@@ -88,7 +83,7 @@ runs:
             git config --global user.email ${AUTHOR_EMAIL}
             git config --global user.name ${AUTHOR_NAME}
             currentBranch=$(git branch --show-current)
-            git remote add source ${GITHUB_SERVER_URL}/${SYNC_REPOSITORY}.git
+            git remote add source ${GITHUB_SERVER_URL}/lxk0301/jd_scripts.git
             git fetch source
             git checkout source/${SYNC_BRANCH_NAME}
             deletedFiles=$(getDeletedFiles)
