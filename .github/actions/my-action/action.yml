@@ -37,7 +37,6 @@ runs:
             git remote add source ${GITHUB_SERVER_URL}/lxk0301/jd_scripts.git
             git fetch source
             git checkout source/master
-            createCommitMessage
             git checkout $currentBranch
             checkOrAddSyncIgnore
             git diff source/master -R | git apply
