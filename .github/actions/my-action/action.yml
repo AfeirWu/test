@@ -4,24 +4,9 @@ branding:
 name: 'Sync files'
 description: 'This action syncs repository files with another repository.'
 inputs:
-  git-author-email:
-    description: 'The email of the committer.'
-    required: true
-  git-author-name:
-    description: 'The name of the committer.'
-    required: true
-  allow-files-pattern:
-    description: 'The regex pattern for files that allowed to update. By default all files.'
-    default: '.*'
-  sync-branch-name:
-    descripion: 'The branch of the source repository to sync. By default master.'
-    default: 'main'
   working-directory:
     descripion: 'The working working-directory.'
     default: ''
-  result-branch-name:
-    descripion: 'The name of the branch that will be created on the action done.'
-    default: sync/${{ github.repository }}
   exclude-files:
     default: ''
     description: 'Space-separated paths of files that should be excluded from sync.'
@@ -30,23 +15,18 @@ inputs:
     description: 'The path to file in the destination repository that contains space-separated paths to files that should be excluded from sync.'
 runs:
   using: "composite"
-  steps: 
+  steps:
     - shell: bash
       env:
-        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
-        AUTHOR_EMAIL: ${{ inputs.git-author-email }}
-        AUTHOR_NAME: ${{ inputs.git-author-name }}
-        REGEX: ${{ inputs.allow-files-pattern }}
         EXCLUDE_FILES: ${{ inputs.exclude-files }}
         WORKING_DIRECTORY: ${{ inputs.working-directory }}
         SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
-        RESULT_BRANCH_NAME: ${{ inputs.result-branch-name }}
       run: |
         getDeletedFiles() {
-            addedFiles=$(git log source/${SYNC_BRANCH_NAME} --pretty=format: --name-only --diff-filter=AR | sort -u)
+            addedFiles=$(git log source/master --pretty=format: --name-only --diff-filter=AR | sort -u)
             currentFiles=$(git ls-files)
             deletedFiles=""
-            for addedFile in $addedFiles; do 
+            for addedFile in $addedFiles; do
                 match="false"
                 for currentFile in $currentFiles; do
                     if [ "${addedFile}" = "${currentFile}" ]; then
@@ -73,34 +53,25 @@ runs:
             echo "" >> /tmp/commit-message
             echo "This PR syncs files with ${GITHUB_SERVER_URL}/lxk0301/jd_scripts" >> /tmp/commit-message
             echo "" >> /tmp/commit-message
-            echo "Revision: ${GITHUB_SERVER_URL}/lxk0301/jd_scripts/commits/$(git rev-parse HEAD)" >> /tmp/commit-message 
+            echo "Revision: ${GITHUB_SERVER_URL}/lxk0301/jd_scripts/commits/$(git rev-parse HEAD)" >> /tmp/commit-message
             echo "" >> /tmp/commit-message
             git log -1 >> /tmp/commit-message
         }
 
         main() {
             pushd "${WORKING_DIRECTORY}"
-            git config --global user.email ${AUTHOR_EMAIL}
-            git config --global user.name ${AUTHOR_NAME}
+            git config --global user.email test@github.com
+            git config --global user.name test
             currentBranch=$(git branch --show-current)
             git remote add source ${GITHUB_SERVER_URL}/lxk0301/jd_scripts.git
             git fetch source
-            git checkout source/${SYNC_BRANCH_NAME}
-            deletedFiles=$(getDeletedFiles)
+            git checkout source/master
             createCommitMessage
             git checkout $currentBranch
             checkOrAddSyncIgnore
-            git diff source/${SYNC_BRANCH_NAME} -R | git apply
-            git add $(git ls-tree --name-only -r source/${SYNC_BRANCH_NAME} | grep -E "${REGEX}")
+            git diff source/master -R | git apply
+            git add $(git ls-tree --name-only -r source/master)
             git restore -- ${SYNC_IGNORE_FILE_NAME}
-            for deletedFile in $deletedFiles; do
-                {
-                    rm -f $deletedFile
-                    git add $deletedFile
-                } || {
-                    echo $deletedFile is already deleted
-                }
-            done
             while read -r path || [[ -n "$path" ]]; do
                 git restore --staged -- $path
                 git restore -- $path
@@ -113,8 +84,8 @@ runs:
                 exit 0;
             fi
             git commit -s -F /tmp/commit-message
-            git checkout -b ${RESULT_BRANCH_NAME}
-            git push -f origin ${RESULT_BRANCH_NAME}
+            git checkout -b master
+            git push -f origin master
             git checkout $currentBranch
             popd
         }
