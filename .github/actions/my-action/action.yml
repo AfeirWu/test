@@ -39,7 +39,7 @@ runs:
             git checkout source/master
             git checkout $currentBranch
             checkOrAddSyncIgnore
-            git diff source/master -R | git apply
+            git diff source/master -R --binary | git apply
             git add $(git ls-tree --name-only -r source/master)
             git restore -- ${SYNC_IGNORE_FILE_NAME}
             while read -r path || [[ -n "$path" ]]; do
