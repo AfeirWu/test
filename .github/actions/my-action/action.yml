@@ -22,40 +22,11 @@ runs:
         WORKING_DIRECTORY: ${{ inputs.working-directory }}
         SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
       run: |
-        getDeletedFiles() {
-            addedFiles=$(git log source/master --pretty=format: --name-only --diff-filter=AR | sort -u)
-            currentFiles=$(git ls-files)
-            deletedFiles=""
-            for addedFile in $addedFiles; do
-                match="false"
-                for currentFile in $currentFiles; do
-                    if [ "${addedFile}" = "${currentFile}" ]; then
-                        match="true"
-                        break
-                    fi
-                done
-                if [ "${match}" = "false" ]; then
-                    deletedFiles="${deletedFiles} ${addedFile}"
-                fi
-            done
-            echo $deletedFiles
-        }
-
         checkOrAddSyncIgnore() {
             if [ ! -f ${SYNC_IGNORE_FILE_NAME} ]; then
                 touch ${SYNC_IGNORE_FILE_NAME}
                 git add ${SYNC_IGNORE_FILE_NAME}
             fi
-        }
-
-        createCommitMessage() {
-            echo "Sync files with lxk0301/jd_scripts" > /tmp/commit-message
-            echo "" >> /tmp/commit-message
-            echo "This PR syncs files with ${GITHUB_SERVER_URL}/lxk0301/jd_scripts" >> /tmp/commit-message
-            echo "" >> /tmp/commit-message
-            echo "Revision: ${GITHUB_SERVER_URL}/lxk0301/jd_scripts/commits/$(git rev-parse HEAD)" >> /tmp/commit-message
-            echo "" >> /tmp/commit-message
-            git log -1 >> /tmp/commit-message
         }
 
         main() {
@@ -83,7 +54,7 @@ runs:
             if ! [ -n "$(git diff --cached --exit-code)" ]; then
                 exit 0;
             fi
-            git commit -s -F /tmp/commit-message
+            git commit -m '拉取最新代码'
             git checkout -b master
             git push -f origin master
             git checkout $currentBranch
