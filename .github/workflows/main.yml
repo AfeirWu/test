@@ -30,8 +30,9 @@ jobs:
 #           RESULT_BRANCH_NAME: 'main'
 #           SYNC_IGNORE_FILE_NAME: '.syncignore'
 #           WORKING_DIRECTORY: ''
-      - name: Sync files with dst-octocat-repsotiory!
-        uses: denis-tingajkin/sync-files@main
+
+      - name: Use local my-action
+        uses: ./action
         with:
           git-author-email: 'AfeirWu@github.com'
           git-author-name: 'AfeirWu'
