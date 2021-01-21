@@ -14,6 +14,3 @@ jobs:
         with:
           repository: ${{ github.repository }}
           token: ${{ env.PAT }}
-
-      - name: Use local my-action
-        uses: ./.github/actions/my-action
